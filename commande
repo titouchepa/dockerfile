@@ -1,0 +1,54 @@
+apt update -qq
+apt install apt-transport-https
+apt install ca-certificate
+apt install curl
+apt install gnupg-agent
+apt install software-properties-common -qqy
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+apt-key fingerprint 0EBFCD88
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update -qqy
+
+sudo apt install docker-ce docker-ce-cli containerd.io -qqy
+sudo systemctl enable docker && sudo systemctl start docker
+sudo docker container run hello-world
+
+
+##########################################################################################
+#Installation docker compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+apt install docker-compose
+###############################################
+
+#On va lister nos images docker
+docker images
+sudo docker container ls
+
+#arreter et demarrer docker
+docker container stop
+docker container kill
+sudo docker container start -a <Conteneur ID>   (possible obtenir IMAGE ID avec la commandes docker ps)ici pour moi c'est 5ceec1127b56
+
+
+Sur ma VM installer vscode via interface graphique.
+Ajout de l'extension docker
+
+sudo su
+mkdir joomla
+cd joomla
+mkdir joomla_container
+cd joomla_container
+nano dockerfile
+
+### contenue de ce fichier
+FROM debian:10
+RUN apt-get update && apt-get install -y  --no-install-recommends \
+php-fpm \
+ngninx \
+curl \
+
+sudo apt install libapache2-mod-php7.2 openssl php-imagick php7.2-common php7.2-curl php7.2-gd php7.2-imap php7.2-intl php7.2-json php7.2-ldap php7.2-mbstring php7.2-mysql php7.2-pgsql php-smbclient php-ssh2 php7.2-sqlite3 php7.2-xml php7.2-zip
